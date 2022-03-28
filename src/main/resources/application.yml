@@ -1,33 +1,26 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
+  batch:
+    jdbc:
+      initialize-schema: always
+  h2:
+    console:
+      enabled: true
+      path: /h2
 #  datasource:
 #    driver-class-name: org.h2.Driver
 #    username: sa
 #    password:
 #    url: jdbc:h2:mem:testdb
-
-  master-datasource:
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-    jdbcUrl: jdbc:h2:mem:testdb
-
-  second-datasource:
-    username: root
-    password: 1234
-    jdbcUrl: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
-
-  h2:
-    console:
-      enabled: true
-      path: /h2
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
+#
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: create
+#    properties:
+#      hibernate:
+#        format_sql: true
 
 server:
   port: 8083
