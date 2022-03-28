@@ -17,15 +17,15 @@ import javax.sql.DataSource
 @PropertySource("classpath:application.yml")
 @EnableJpaRepositories(
     basePackages = ["com.galid.jpa_study.second_repository"],
-    entityManagerFactoryRef = "masterEntityManagerFactory",
-    transactionManagerRef = "masterTransactionManager"
+    entityManagerFactoryRef = "secondEntityManagerFactory",
+    transactionManagerRef = "secondTransactionManager"
 )
 class SecondDatasourceConfig {
     @Bean
     fun secondEntityManagerFactory(): LocalContainerEntityManagerFactoryBean {
         val emf = LocalContainerEntityManagerFactoryBean()
         emf.dataSource = secondDatasource()
-        emf.setPackagesToScan("com.galid.jpa_study.entity")
+        emf.setPackagesToScan("com.galid.jpa_study.entity.product")
         emf.jpaVendorAdapter = HibernateJpaVendorAdapter()
         emf.setJpaPropertyMap(
             mapOf(

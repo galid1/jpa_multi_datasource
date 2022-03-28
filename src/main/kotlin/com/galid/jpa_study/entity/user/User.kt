@@ -1,4 +1,4 @@
-package com.galid.jpa_study.entity
+package com.galid.jpa_study.entity.user
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue

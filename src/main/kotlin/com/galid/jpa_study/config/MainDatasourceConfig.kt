@@ -26,7 +26,7 @@ class MainDatasourceConfig {
     fun masterEntityManagerFactory(): LocalContainerEntityManagerFactoryBean {
         val emf = LocalContainerEntityManagerFactoryBean()
         emf.dataSource = masterDatasource()
-        emf.setPackagesToScan("com.galid.jpa_study.entity")
+        emf.setPackagesToScan("com.galid.jpa_study.entity.user")
         emf.jpaVendorAdapter = HibernateJpaVendorAdapter()
         emf.setJpaPropertyMap(
             mapOf(

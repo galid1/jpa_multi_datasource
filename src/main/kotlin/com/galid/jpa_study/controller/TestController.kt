@@ -10,6 +10,11 @@ class TestController(
 ) {
     @GetMapping("/1")
     fun t1() {
-        println("receive")
+        testService.t()
+    }
+
+    @GetMapping("/2")
+    fun t2() {
+        testService.t2()
     }
 }
