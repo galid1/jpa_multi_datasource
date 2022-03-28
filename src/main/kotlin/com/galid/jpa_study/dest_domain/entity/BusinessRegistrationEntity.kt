@@ -1,6 +1,6 @@
-package com.galid.jpa_study.dest_domain
+package com.galid.jpa_study.dest_domain.entity
 
-import com.galid.jpa_study.dest_domain.CompanyStatus.OPEN
+import com.galid.jpa_study.dest_domain.entity.CompanyStatus.OPEN
 import org.hibernate.annotations.SQLDelete
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
@@ -12,7 +12,10 @@ enum class BusinessRegistrationType(val value: Int) {
     GENERAL_TAX_PAYER(1), // 일반 과세자
     SUMMARY_TAX_PAYER(2), // 간이 과세자
     TAX_FREE_PAYER(3), // 면세 과세자 (개인/법인 통합)
-    COOPERATE_PAYER(4); // 법인 과세자
+    COOPERATE_PAYER(4), // 법인 과세자
+    SELF_EMPLOYED(5),
+    CORPORATE(6);
+
 }
 
 enum class CompanyStatus{

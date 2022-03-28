@@ -1,6 +1,7 @@
-package com.galid.jpa_study.dest_domain
+package com.galid.jpa_study.dest_domain.entity
 
-import com.galid.jpa_study.dest_domain.BusinessRegistrationUpdateHistoryEntity.Companion.TABLE_NAME
+import com.galid.jpa_study.dest_domain.Timestamp
+import com.galid.jpa_study.dest_domain.entity.BusinessRegistrationUpdateHistoryEntity.Companion.TABLE_NAME
 import javax.persistence.*
 
 @Entity

@@ -1,7 +1,7 @@
-package com.galid.jpa_study.dest_domain
+package com.galid.jpa_study.dest_domain.repo
 
-import com.galid.jpa_study.dest_domain.AccountType
-import com.galid.jpa_study.dest_domain.OwnBusinessRegistrationEntity
+import com.galid.jpa_study.dest_domain.entity.AccountType
+import com.galid.jpa_study.dest_domain.entity.OwnBusinessRegistrationEntity
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface OwnBusinessRegistrationRepository: JpaRepository<OwnBusinessRegistrationEntity, Long> {

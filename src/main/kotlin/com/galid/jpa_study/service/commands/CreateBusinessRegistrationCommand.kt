@@ -1,7 +1,7 @@
 package com.galid.jpa_study.service.commands
 
-import com.galid.jpa_study.dest_domain.AccountType
-import com.galid.jpa_study.dest_domain.BusinessRegistrationType
+import com.galid.jpa_study.dest_domain.entity.AccountType
+import com.galid.jpa_study.dest_domain.entity.BusinessRegistrationType
 
 data class CreateBusinessRegistrationCommand(
     var accountType: AccountType,
