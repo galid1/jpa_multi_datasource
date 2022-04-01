@@ -26,9 +26,9 @@ class DestDataSourceConfig {
     @Primary
     fun destDataSource(): DataSource {
         return DataSourceBuilder.create()
-            .username("root")
-            .password("1234")
-            .url("jdbc:mysql://localhost:3306/test?serverTimezone=UTC")
+            .username("karrot")
+            .password("abcabcabc")
+            .url("jdbc:mysql://localhost:3307/business_center?serverTimezone=UTC")
             .driverClassName("com.mysql.cj.jdbc.Driver")
             .build()
     }
