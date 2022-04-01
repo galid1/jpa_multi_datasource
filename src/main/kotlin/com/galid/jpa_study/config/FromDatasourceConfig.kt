@@ -23,9 +23,9 @@ class FromDatasourceConfig {
     @Qualifier("fromDataSource")
     fun fromDataSource(): DataSource {
         return DataSourceBuilder.create()
-            .username("karrot_ba")
-            .password("ekdrmsakzpt")
-            .url("jdbc:mysql://alpha-biz-account-0.cusieftkzlyg.ap-northeast-2.rds.amazonaws.com:3306/business_platform")
+            .username("kotisaari")
+            .password("QNehdT@^Ehdsp92")
+            .url("jdbc:mysql://alpha-business1.cusieftkzlyg.ap-northeast-2.rds.amazonaws.com:3306/kotisaari_finance")
             .driverClassName("com.mysql.cj.jdbc.Driver")
             .build()
     }

@@ -1,6 +1,7 @@
 package com.galid.jpa_study.job
 
 import com.galid.jpa_study.dest_domain.entity.AccountType.BUSINESS_ACCOUNT
+import com.galid.jpa_study.dest_domain.entity.AccountType.BUSINESS_USER
 import com.galid.jpa_study.dest_domain.entity.BusinessRegistrationType
 import com.galid.jpa_study.from_domain.BusinessRegistrationEntity
 import com.galid.jpa_study.service.BusinessRegistrationCommandService
@@ -31,8 +32,6 @@ import javax.sql.DataSource
 class MigrationFromBAJobConfig(
     private val jobBuilderFactory: JobBuilderFactory,
     private val stepBuilderFactory: StepBuilderFactory,
-    @Qualifier("fromEntityManagerFactory") private val fromEntityManagerFactory: EntityManagerFactory,
-    @Qualifier("destEntityManagerFactory") private val destEntityManagerFactory: EntityManagerFactory,
     @Qualifier("fromDataSource") private val fromDataSource: DataSource,
     private val businessRegistrationCommandService: BusinessRegistrationCommandService,
 ) {
@@ -64,37 +63,19 @@ class MigrationFromBAJobConfig(
         return transactionAttribute
     }
 
-    //    @Bean
-//    @StepScope
-//    fun baReader(): JpaPagingItemReader<BusinessRegistrationEntity> {
-//        return JpaPagingItemReaderBuilder<BusinessRegistrationEntity>()
-//            .name("read")
-//            .transacted(false)
-//            .queryString(
-//                """
-//                    SELECT br
-//                    FROM BusinessRegistrationEntity br
-//                """.trimIndent()
-//            )
-//            .pageSize(CHUNK_SIZE)
-//            .entityManagerFactory(fromEntityManagerFactory)
-//            .build()
-//
-//    }
     @Bean
     @StepScope
     fun baReader(): JdbcCursorItemReader<BusinessRegistrationEntity> {
         return JdbcCursorItemReaderBuilder<BusinessRegistrationEntity>()
             .sql("""
                 SELECT *
-                FROM business_registrations
+                FROM bl_business_info;
             """.trimIndent())
             .rowMapper(BeanPropertyRowMapper(BusinessRegistrationEntity::class.java))
             .dataSource(fromDataSource)
             .fetchSize(CHUNK_SIZE)
             .name("read")
             .build()
-
     }
 
     @Bean
@@ -102,19 +83,20 @@ class MigrationFromBAJobConfig(
     fun processor(): ItemProcessor<BusinessRegistrationEntity, Void> {
         return ItemProcessor {
             val command = CreateBusinessRegistrationCommand(
-                accountType = BUSINESS_ACCOUNT,
-                accountId = it.businessAccountId,
-                companyName = it.name!!,
-                businessRegistrationType = if (it.type != null) BusinessRegistrationType.valueOf(it.type!!.name) else null,
-                businessNumber = it.registrationNumber!!,
+                accountType = BUSINESS_USER,
+                accountId = it.advertiserId,
+                companyName = it.companyName!!,
+                businessRegistrationType = null,
+                businessNumber = it.businessNumber,
                 registrationNumber = null,
-                registrationPaperPhotoId = it.registrationPaperPhotoId,
-                ownerName = it.ownerName!!,
-                businessType = it.industry,
-                businessItem = it.businessCategory,
+                registrationPaperPhotoId = null,
+                ownerName = it.ceoName!!,
+                businessType = it.businessItem,
+                businessItem = it.businessType,
                 address = it.address,
-                contact = it.contact,
-                email = null,
+                contact = null,
+                email = it.email,
+                subEmail = it.subEmail
             )
 
             businessRegistrationCommandService.createBusinessRegistration(command)

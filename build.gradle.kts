@@ -25,6 +25,7 @@ repositories {
 
 dependencies {
     implementation("mysql:mysql-connector-java:8.0.22")
+    implementation("org.postgresql:postgresql:42.3.3")
 
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
