@@ -23,9 +23,9 @@ class FromDatasourceConfig {
     @Qualifier("fromDataSource")
     fun fromDataSource(): DataSource {
         return DataSourceBuilder.create()
-            .username("kotisaari")
-            .password("QNehdT@^Ehdsp92")
-            .url("jdbc:mysql://alpha-business1.cusieftkzlyg.ap-northeast-2.rds.amazonaws.com:3306/kotisaari_finance")
+            .username("karrot_ba")
+            .password("ekdrmsakzpt")
+            .url("jdbc:mysql://alpha-biz-account-0.cusieftkzlyg.ap-northeast-2.rds.amazonaws.com:3306/business_platform")
             .driverClassName("com.mysql.cj.jdbc.Driver")
             .build()
     }
@@ -41,7 +41,7 @@ class FromDatasourceConfig {
             mapOf(
 //                "hibernate.implicit_naming_strategy" to "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
                 "hibernate.physical_naming_strategy" to "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy",
-                "hibernate.dialect" to "org.hibernate.dialect.PostgreSQL10Dialect"
+                "hibernate.dialect" to "org.hibernate.dialect.MySQL8Dialect"
             )
         )
         return emf

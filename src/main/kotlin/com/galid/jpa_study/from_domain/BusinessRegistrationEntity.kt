@@ -5,25 +5,35 @@ import javax.persistence.*
 @Entity
 @Table(name ="bl_business_info")
 class BusinessRegistrationEntity(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long?= null,
+    @Id
+    var businessAccountId: Long,
 
-    var advertiserId: Long,
+    @Column(nullable = true)
+    var name: String?,
 
+    @Column(nullable = true)
+    @Enumerated(EnumType.STRING)
+    var type: com.galid.jpa_study.dest_domain.entity.BusinessRegistrationType?,
+
+    @Column(nullable = true)
+    var registrationNumber: String?,
+
+    @Column(nullable = true)
+    var registrationPaperPhotoId: String?,
+
+    @Column(nullable = true)
+    var ownerName: String?,
+
+    @Column(nullable = true)
+    var industry: String?,
+
+    @Column(nullable = true)
+    var businessCategory: String?,
+
+    @Column(nullable = true)
     var address: String?,
 
-    var businessItem: String?,
-
-    var businessType: String?,
-
-    var businessNumber: String,
-
-    var ceoName: String?,
-
-    var companyName: String?,
-
-    var email: String?,
-
-    var subEmail: String?,
+    @Column(nullable = true)
+    var contact: String?,
 ) {
 }

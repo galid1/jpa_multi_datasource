@@ -1,9 +1,6 @@
 package com.galid.jpa_study.job
 
-import com.galid.jpa_study.config.encrypt.EncryptionConverter
 import com.galid.jpa_study.dest_domain.entity.AccountType.BUSINESS_ACCOUNT
-import com.galid.jpa_study.dest_domain.entity.AccountType.BUSINESS_USER
-import com.galid.jpa_study.dest_domain.entity.BusinessRegistrationType
 import com.galid.jpa_study.from_domain.BusinessRegistrationEntity
 import com.galid.jpa_study.service.BusinessRegistrationCommandService
 import com.galid.jpa_study.service.commands.CreateBusinessRegistrationCommand
@@ -22,11 +19,9 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.jdbc.core.BeanPropertyRowMapper
-import org.springframework.transaction.TransactionDefinition.ISOLATION_DEFAULT
 import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute
-import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
 
 @Configuration
@@ -35,7 +30,6 @@ class MigrationFromBAJobConfig(
     private val stepBuilderFactory: StepBuilderFactory,
     @Qualifier("fromDataSource") private val fromDataSource: DataSource,
     private val businessRegistrationCommandService: BusinessRegistrationCommandService,
-    private val converter: EncryptionConverter
 ) {
 
     @Bean
@@ -71,7 +65,7 @@ class MigrationFromBAJobConfig(
         return JdbcCursorItemReaderBuilder<BusinessRegistrationEntity>()
             .sql("""
                 SELECT *
-                FROM bl_business_info;
+                FROM business_registrations;
             """.trimIndent())
             .rowMapper(BeanPropertyRowMapper(BusinessRegistrationEntity::class.java))
             .dataSource(fromDataSource)
@@ -85,20 +79,20 @@ class MigrationFromBAJobConfig(
     fun processor(): ItemProcessor<BusinessRegistrationEntity, Void> {
         return ItemProcessor {
             val command = CreateBusinessRegistrationCommand(
-                accountType = BUSINESS_USER,
-                accountId = it.advertiserId,
-                companyName = it.companyName!!,
-                businessRegistrationType = null,
-                businessNumber = it.businessNumber,
+                accountType = BUSINESS_ACCOUNT,
+                accountId = it.businessAccountId,
+                companyName = it.name!!,
+                businessRegistrationType = it.type,
+                businessNumber = it.registrationNumber!!,
                 registrationNumber = null,
-                registrationPaperPhotoId = null,
-                ownerName = it.ceoName!!,
-                businessType = it.businessItem,
-                businessItem = it.businessType,
-                address = converter.convertToDatabaseColumn(it.address),
-                contact = null,
-                email = converter.convertToDatabaseColumn(it.email),
-                subEmail = converter.convertToDatabaseColumn(it.subEmail)
+                registrationPaperPhotoId = it.registrationPaperPhotoId,
+                ownerName = it.ownerName?:"",
+                businessType = it.industry,
+                businessItem = it.businessCategory,
+                address = it.address,
+                contact = it.contact,
+                email = null,
+                subEmail = null
             )
 
             businessRegistrationCommandService.createBusinessRegistration(command)
