@@ -41,7 +41,7 @@ class FromDatasourceConfig {
             mapOf(
 //                "hibernate.implicit_naming_strategy" to "org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy",
                 "hibernate.physical_naming_strategy" to "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy",
-                "hibernate.dialect" to "org.hibernate.dialect.MySQL8Dialect"
+                "hibernate.dialect" to "org.hibernate.dialect.PostgreSQL10Dialect"
             )
         )
         return emf

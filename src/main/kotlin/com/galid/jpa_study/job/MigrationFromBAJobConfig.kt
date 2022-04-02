@@ -1,5 +1,6 @@
 package com.galid.jpa_study.job
 
+import com.galid.jpa_study.config.encrypt.EncryptionConverter
 import com.galid.jpa_study.dest_domain.entity.AccountType.BUSINESS_ACCOUNT
 import com.galid.jpa_study.dest_domain.entity.AccountType.BUSINESS_USER
 import com.galid.jpa_study.dest_domain.entity.BusinessRegistrationType
@@ -34,6 +35,7 @@ class MigrationFromBAJobConfig(
     private val stepBuilderFactory: StepBuilderFactory,
     @Qualifier("fromDataSource") private val fromDataSource: DataSource,
     private val businessRegistrationCommandService: BusinessRegistrationCommandService,
+    private val converter: EncryptionConverter
 ) {
 
     @Bean
@@ -93,10 +95,10 @@ class MigrationFromBAJobConfig(
                 ownerName = it.ceoName!!,
                 businessType = it.businessItem,
                 businessItem = it.businessType,
-                address = it.address,
+                address = converter.convertToDatabaseColumn(it.address),
                 contact = null,
-                email = it.email,
-                subEmail = it.subEmail
+                email = converter.convertToDatabaseColumn(it.email),
+                subEmail = converter.convertToDatabaseColumn(it.subEmail)
             )
 
             businessRegistrationCommandService.createBusinessRegistration(command)

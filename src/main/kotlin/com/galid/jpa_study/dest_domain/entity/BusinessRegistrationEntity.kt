@@ -1,5 +1,6 @@
 package com.galid.jpa_study.dest_domain.entity
 
+import com.galid.jpa_study.config.encrypt.EncryptionConverter
 import com.galid.jpa_study.dest_domain.entity.CompanyStatus.OPEN
 import org.hibernate.annotations.SQLDelete
 import java.time.LocalDateTime

@@ -22,5 +22,8 @@ spring:
 #      hibernate:
 #        format_sql: true
 
+business-center:
+  data-encryption-key: N4MPSQiIMa9eECl71pUJ7g==
+
 server:
   port: 8083
